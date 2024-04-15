@@ -2,6 +2,7 @@ body {
     /* background: url(https://tailwindui.com/img/beams-home@95.jpg); */
     background: linear-gradient(to right, #4286f4, #f441a5, #ffa500, #4286f4);
     background-size: cover;
+    font-family: "Montserrat", serif;
     background-repeat: no-repeat;
     background-attachment: fixed;
     /* height: 100vh; */
