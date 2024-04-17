@@ -1,11 +1,26 @@
 body {
-    background: #0172AF;
-    background: linear-gradient(45deg, #0172AF, #74FEBD);
+    background: linear-gradient(214deg, #0172AF, #f441a5, #ffa500);
     /* background: url(https://img.freepik.com/premium-photo/abstract-99-background-wallpaper-gradient_792836-187406.jpg?w=1060); */
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
     height: 100vh;
+}
+
+ol {
+    animation: slideDown 0.9s ease-in-out;
+}
+
+@keyframes slideDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 h1 {
