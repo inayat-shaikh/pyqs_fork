@@ -24,6 +24,35 @@ body {
     }
 }
 
+/*Animation on cards */
+
+@keyframes slideIn {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.card {
+    transform-origin: left center;
+    animation: slideIn 0.8s ease-out forwards;
+}
+
+#card1 {
+    animation-delay: 0.1s;
+}
+
+#card2 {
+    animation-delay: 0.3s;
+}
+
+/*Animations on cards ends*/
+
 #card1,
 #card2 {
     backdrop-filter: blur(16px) saturate(180%);
