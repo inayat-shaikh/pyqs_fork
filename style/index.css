@@ -63,3 +63,13 @@ body {
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
     max-width: 100%;
 }
+
+/*made with love*/
+:root {
+    --heart-color: #ff9999;
+    /* Light red color */
+}
+
+.heart {
+    color: var(--heart-color);
+}
