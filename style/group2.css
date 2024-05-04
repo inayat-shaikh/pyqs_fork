@@ -1,6 +1,6 @@
 body {
-    /*background: linear-gradient(214deg, #0172AF, #f441a5, #ffa500); */
-    background: url(https://img.freepik.com/free-vector/gradient-grainy-gradient-background_23-2149922231.jpg?w=900&t=st=1714849487~exp=1714850087~hmac=1a0db15aa803e047aa6240171d304529b78b0e2537645ba331487c021c2324b4);
+    background: linear-gradient(214deg, #0172AF, #f441a5, #ffa500);
+    /*background: url(https://img.freepik.com/free-vector/gradient-grainy-gradient-background_23-2149922231.jpg?w=900&t=st=1714849487~exp=1714850087~hmac=1a0db15aa803e047aa6240171d304529b78b0e2537645ba331487c021c2324b4); */
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
