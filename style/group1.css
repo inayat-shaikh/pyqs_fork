@@ -1,7 +1,6 @@
 body {
-    background: linear-gradient(135deg, #1EC19F, #A941BB);
-
-    /* background: url(https://img.freepik.com/premium-photo/abstract-99-background-wallpaper-gradient_792836-187406.jpg?w=1060); */
+   /*background: linear-gradient(135deg, #1EC19F, #A941BB); */
+    background: url(https://img.freepik.com/free-vector/gradient-grainy-gradient-background_23-2149922133.jpg?w=900&t=st=1714850944~exp=1714851544~hmac=b65eaad0b2e1201bcc43957a512218bcd03f73f4720b59d584b021d9c7d52c73);
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
