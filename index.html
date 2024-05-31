@@ -20,9 +20,11 @@
 
     <script>
     <!--script to disable right click on the page-->
-    document.addEventListener('contextmenu', function(event) {
-        event.preventDefault();
-    });
+                document.addEventListener('DOMContentLoaded', function() {
+            document.addEventListener('contextmenu', function(event) {
+                event.preventDefault();
+            });
+        });
     </script>
 </head>
 
