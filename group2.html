@@ -19,6 +19,11 @@
         } else {
             document.documentElement.classList.remove('dark');
         }
+
+    <!--script to disable right click on the page-->
+    document.addEventListener('contextmenu', function(event) {
+        event.preventDefault();
+    });
     </script>
 </head>
 
