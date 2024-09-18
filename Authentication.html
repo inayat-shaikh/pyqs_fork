@@ -363,51 +363,72 @@
             return `${day}-${month}-${year}`;
         }
 
-        registrationForm.addEventListener('submit', e => {
-            e.preventDefault();
+             registrationForm.addEventListener('submit', e => {
+    e.preventDefault();
 
-            // Check if Branch and Year are selected
-            const branchSelect = registrationForm.querySelector('select[name="Branch"]');
-            const yearSelect = registrationForm.querySelector('select[name="Year"]');
+    // Validate name (at least 2 characters)
+    const nameInput = registrationForm.querySelector('input[name="Name"]');
+    const emailInput = registrationForm.querySelector('input[name="Email"]');
+    let valid = true;
 
-            if (branchSelect.value === "Your Branch" || yearSelect.value === "Your Year") {
-                alert("Please select your Branch and Year before submitting.");
-                return;
+    // Name validation
+    if (nameInput.value.length < 2) {
+        alert("Please Enter Proper Name");
+        valid = false;
+    }
+
+    // Email validation (must have something after dot)
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailPattern.test(emailInput.value)) {
+        alert("Please enter a valid email");
+        valid = false;
+    }
+
+    // Check if Branch and Year are selected
+    const branchSelect = registrationForm.querySelector('select[name="Branch"]');
+    const yearSelect = registrationForm.querySelector('select[name="Year"]');
+
+    if (branchSelect.value === "Your Branch" || yearSelect.value === "Your Year") {
+        alert("Please select your Branch and Year before submitting.");
+        valid = false;
+    }
+
+    // If any validation fails, stop form submission
+    if (!valid) return;
+
+    // Show loading overlay and continue with form submission
+    loadingOverlay.style.display = 'flex';
+    const formData = new FormData(registrationForm);
+    const accessKey = generateAccessKey();
+    formData.append('accessKey', accessKey);
+    formData.append('Time', getCurrentTime());
+    formData.append('Date', getCurrentDate());
+
+    fetch(scriptURL, { method: 'POST', body: formData })
+        .then(response => {
+            if (response.ok) {
+                localStorage.setItem('accessKey', accessKey);
+
+                // Show success or continue
+                loadingOverlay.style.display = 'none';
+                detailsFormDiv.style.display = 'none';
+                accessFormDiv.style.display = 'flex';
+                document.getElementById('accessKey').value = accessKey;
+
+                // Set the user's name in the success message
+                const userName = formData.get('Name');
+                userNameSpan.textContent = userName;
+
+            } else {
+                throw new Error('Network response was not ok');
             }
-
-            loadingOverlay.style.display = 'flex';
-            const formData = new FormData(registrationForm);
-            const accessKey = generateAccessKey();
-            formData.append('accessKey', accessKey);
-            formData.append('Time', getCurrentTime());
-            formData.append('Date', getCurrentDate());
-
-            fetch(scriptURL, { method: 'POST', body: formData })
-                .then(response => {
-                    if (response.ok) {
-                        localStorage.setItem('accessKey', accessKey);
-
-                        //show success or continue
-                        loadingOverlay.style.display = 'none';
-                        detailsFormDiv.style.display = 'none';
-                        accessFormDiv.style.display = 'flex';
-                        document.getElementById('accessKey').value = accessKey;
-                        // localStorage.setItem('registeredEmail', formData.get('Email'));
-
-                        // Set the user's name in the success message
-                        const userName = formData.get('Name');
-                        userNameSpan.textContent = userName;
-
-                    } else {
-                        throw new Error('Network response was not ok');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error!', error.message);
-                    loadingOverlay.style.display = 'none';
-                    alert('An error occurred. Please try again.');
-                });
+        })
+        .catch(error => {
+            console.error('Error!', error.message);
+            loadingOverlay.style.display = 'none';
+            alert('An error occurred. Please try again.');
         });
+});
 
         accessForm.addEventListener('submit', e => {
             e.preventDefault();
