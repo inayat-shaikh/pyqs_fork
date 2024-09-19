@@ -57,6 +57,27 @@
             display: block;
             margin: 0 auto;
         }
+        
+        #details-form {
+    opacity: 0;
+    animation: fadeIn 1.4s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+#accessKeyformContent {
+    transform: translateX(100%);
+    animation: slideIn 1s ease-in-out forwards;
+}
+
+@keyframes slideIn {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(0); }
+}
+        
     </style>
 </head>
 
@@ -170,7 +191,7 @@
         style="font-family: 'Plus Jakarta Sans', sans-serif; background-color: #e9eef5; display: none;"
         class="form-overlay fixed inset-0 bg-opacity-100 overflow-y-auto h-full w-full flex items-center justify-center z-10 p-3">
         <div class="bg-white p-8 rounded-lg shadow-xl w-full max-w-md sm:max-w-md mx-2 sm:mx-0"
-            style="border-radius: 25px;" id="formContent">
+            style="border-radius: 25px;" id="accessKeyformContent">
             <div class="check-container relative flex items-center justify-center" id="error">
                 <img src="check.svg" width="55px" height="55px" alt="orange error icon"
                     style="position: absolute; top: -50%; transform: translateY(-100%);" />
@@ -185,7 +206,7 @@
             </p>
             <form name="google-sheet" method="post" id="accessForm" class="space-y-4">
                 <div class="relative z-0">
-                    <input type="text" id="accessKey" name="accessKey" required oninput="removeSpaces(this)"
+                   <input type="text" id="accessKey" name="accessKey" required oninput="removeSpaces(this)"
                         class="block py-2.5 px-0 w-full text-base text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                         placeholder=" " disabled />
                     <label for="accessKey"
@@ -363,7 +384,22 @@
             return `${day}-${month}-${year}`;
         }
 
-             registrationForm.addEventListener('submit', e => {
+        function typeEffect(element, text, speed) {
+    let index = 0;
+    element.value = ""; // Clear the input field
+
+    function type() {
+        if (index < text.length) {
+            element.value += text.charAt(index);
+            index++;
+            setTimeout(type, speed);
+        }
+    }
+
+    type();
+}
+
+registrationForm.addEventListener('submit', e => {
     e.preventDefault();
 
     // Validate name (at least 2 characters)
@@ -413,7 +449,15 @@
                 loadingOverlay.style.display = 'none';
                 detailsFormDiv.style.display = 'none';
                 accessFormDiv.style.display = 'flex';
-                document.getElementById('accessKey').value = accessKey;
+
+detailsFormDiv.style.display = 'none';
+accessFormDiv.style.display = 'flex';
+
+// Delay the typing effect to ensure the form is fully visible
+setTimeout(() => {
+    const accessKeyInput = document.getElementById('accessKey');
+    typeEffect(accessKeyInput, accessKey, 150); // Typing speed set to 150ms per character
+}, 600); // 600ms delay to make sure the form is visible
 
                 // Set the user's name in the success message
                 const userName = formData.get('Name');
@@ -451,7 +495,7 @@
                 successOverlay.style.display = 'flex';
             }, 3000); // 3000 milliseconds = 3 seconds
 
-            // Automatically redirect to the main page after 6 seconds
+            // Automatically redirect to the main page after 10 seconds
             setTimeout(() => {
                 window.location.href = 'https://pyqs-isk.pages.dev';
             }, 10000); // 10000 milliseconds = 10 seconds
