@@ -77,6 +77,18 @@
     0% { transform: translateX(100%); }
     100% { transform: translateX(0); }
 }
+/* Simulate the blinking cursor */
+.typing-cursor::after {
+    content: '|';
+    animation: blink 0.7s infinite;
+    margin-left: 2px;
+}
+
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+}
         
     </style>
 </head>
@@ -88,8 +100,7 @@
         class="form-overlay fixed inset-0 bg-opacity-100 overflow-y-auto h-full w-full flex items-center justify-center z-10 p-3">
         <div class="bg-white p-8 rounded-lg shadow-xl w-full max-w-md sm:max-w-md mx-2 sm:mx-0"
             style="border-radius: 25px;" id="formContent">
-            <h2 class="text-xl mb-4 text-center text-blue-900" style="font-weight: 460;">Register Once, Access Anytime
-            </h2>
+            <h2 id="register-title" class="text-xl mb-4 text-center text-blue-900" style="font-weight: 460;">Register Once, Access Anytime</h2>
             <form name="google-sheet" method="post" id="accessForm" class="space-y-4">
                 <div class="relative z-0">
                     <input type="text" id="name" name="Name" required oninput="convertToUpperCaseAndRemoveNumbers(this)"
@@ -350,6 +361,31 @@
     <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
     <script>
+        function typeEffectOnH2(element, text, speed) {
+    let index = 0;
+    element.textContent = ""; // Clear the text content first
+    element.classList.add('typing-cursor'); // Add cursor effect
+
+    function type() {
+        if (index < text.length) {
+            element.textContent += text.charAt(index);
+            index++;
+            setTimeout(type, speed);
+        } else {
+            // Remove the blinking cursor class once typing is done
+            element.classList.remove('typing-cursor');
+        }
+    }
+
+    type();
+}
+
+// Function call
+const h2Element = document.getElementById('register-title');
+setTimeout(() => {
+    typeEffectOnH2(h2Element, "Register Once, Access Anytime", 130); // Speed is 130ms per character
+}, 500); // Delay before starting the typing
+        
         const scriptURL = 'https://script.google.com/macros/s/AKfycbypp2IUDcNXcN5ZBf_KinkyauAI613XO3ckKvuTzHINigrG3pV5YseVACktzD5QaaYn0w/exec';
 
         const registrationForm = document.getElementById('details-form').querySelector('form');
