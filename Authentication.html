@@ -325,6 +325,56 @@
             </div>
         </div>
     </div>
+
+        <!-------------------- AlreadyRegistered overlay ------------------------------->
+    <div id="alreadyRegistered" style="font-family: 'Plus Jakarta Sans', sans-serif;"
+        class="fixed z-10 inset-0 overflow-y-auto hidden flex items-center justify-center p-4"
+        aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="w-full max-w-sm sm:max-w-md mx-2 sm:mx-0">
+            <div style="background: #e9eef5;" class="fixed inset-0 transition-opacity" aria-hidden="true"></div>
+            <div style="border-radius: 35px;"
+                class="bg-white rounded-lg overflow-hidden shadow-2xl transform transition-all w-full">
+                <!-- Modal header with close button -->
+                <div class="flex items-center justify-between p-1 md:p-5 border-b rounded-t">
+                    <h3 class="text-xl font-semibold text-gray-900 w-full text-center">
+                        <div class="dotlottie-container">
+                            <dotlottie-player
+                                src="https://lottie.host/b262bbf7-05a6-4a30-b6e3-648b52389ffe/o5joDCtkZz.json"
+                                background="transparent" speed="1" style="width: 80px; height: 80px;" loop
+                                autoplay></dotlottie-player>
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                        </div>Already Registered!
+                    </h3>
+                </div>
+                <!-- Modal body -->
+                <div class="p-3 md:p-5 space-y-4 text-center">
+                    <p class="text-base leading-relaxed ">
+                        You Have <span class="bg-blue-100 text-blue-800 font-medium me-2 px-1.5 py-0.5 rounded">Already
+                            successfully registered.</span> Click on OK button to
+                        redirect on PYQs website.<br>Have a great Learning...
+                    </p>
+                    <div
+                        class="flex flex-col sm:flex-row justify-center items-center space-y-2 sm:space-y-0 sm:space-x-4">
+                        <a href="https://pyqs-isk.pages.dev"
+                            class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 inline-flex items-center">
+                            <svg class="w-6 h-6 mr-2" viewBox="0 0 24 24" fill="currentColor"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M7.5 7.375C7.5 6.33947 8.33947 5.5 9.375 5.5C10.4105 5.5 11.25 6.33947 11.25 7.375V16.625C11.25 18.489 12.761 20 14.625 20C16.489 20 18 18.489 18 16.625V11.8107L19.2197 13.0303L20.2803 11.9697L17.25 8.93934L14.2197 11.9697L15.2803 13.0303L16.5 11.8107V16.625C16.5 17.6605 15.6605 18.5 14.625 18.5C13.5895 18.5 12.75 17.6605 12.75 16.625V7.375C12.75 5.51104 11.239 4 9.375 4C7.51104 4 6 5.51104 6 7.375V9.5H4V15H9.5V9.5H7.5V7.375ZM5.5 11V13.5H8V11H5.5Z">
+                                </path>
+                            </svg>
+                            <span class="plus-jakarta-sans">OK</span>
+                        </a>
+                    </div>
+                    <p class="text-gray-700"
+                        style="font-size: 12px; font-style: italic; margin-bottom: -3px; margin-top: -2px;">Redirecting
+                        Automatically In 10 Seconds...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
     <script src="script/Authentication.js"></script>
