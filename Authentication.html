@@ -9,93 +9,17 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.css" rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playwrite+FR+Moderne&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Cardo:ital@0;1&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
         rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=JetBrains Mono' rel='stylesheet'>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style\Authentication.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     <script>
         if (document.referrer !== 'https://pyqs-isk.pages.dev/') {
-    window.location.href = 'https://pyqs-isk.pages.dev';
+            window.location.href = 'https://pyqs-isk.pages.dev';
         }
     </script>
-    <style>
-        .footer-text {
-            display: block;
-            text-align: center;
-            width: 100%;
-        }
-
-        /* Overlay styles for loading and success */
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.6);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            backdrop-filter: blur(5px);
-        }
-
-        #overlay-content {
-            width: 80%;
-            max-width: 500px;
-        }
-
-        .dotlottie-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .loading-center {
-            text-align: center;
-        }
-
-        .loading-center svg {
-            display: block;
-            margin: 0 auto;
-        }
-        
-        #details-form {
-    opacity: 0;
-    animation: fadeIn 1.4s ease-in-out forwards;
-}
-
-@keyframes fadeIn {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
-}
-
-#accessKeyformContent {
-    transform: translateX(100%);
-    animation: slideIn 1s ease-in-out forwards;
-}
-
-@keyframes slideIn {
-    0% { transform: translateX(100%); }
-    100% { transform: translateX(0); }
-}
-/* Simulate the blinking cursor */
-.typing-cursor::after {
-    content: '|';
-    animation: blink 0.7s infinite;
-    margin-left: 2px;
-}
-
-@keyframes blink {
-    0% { opacity: 1; }
-    50% { opacity: 0; }
-    100% { opacity: 1; }
-}
-        
-    </style>
 </head>
 
 <body>
@@ -105,10 +29,12 @@
         class="form-overlay fixed inset-0 bg-opacity-100 overflow-y-auto h-full w-full flex items-center justify-center z-10 p-3">
         <div class="bg-white p-8 rounded-lg shadow-xl w-full max-w-md sm:max-w-md mx-2 sm:mx-0"
             style="border-radius: 25px;" id="formContent">
-            <h2 id="register-title" class="text-xl mb-4 text-center text-blue-900" style="font-weight: 460;">Register Once, Access Anytime</h2>
+            <h2 id="register-title" class="text-xl mb-4 text-center text-blue-900" style="font-weight: 460;">Register
+                Once, Access Anytime</h2>
             <form name="google-sheet" method="post" id="accessForm" class="space-y-4">
                 <div class="relative z-0">
-                    <input type="text" id="name" name="Name" required oninput="convertToUpperCaseAndRemoveNumbers(this)"
+                    <input type="text" maxlength="45" id="name" name="Name" required
+                        oninput="convertToUpperCaseAndRemoveNumbers(this)"
                         class="block py-2.5 px-0 w-full text-base text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                         placeholder=" " />
                     <label for="name"
@@ -122,7 +48,7 @@
                     </label>
                 </div>
                 <div class="relative z-0">
-                    <input type="email" id="email" name="Email" required
+                    <input type="email" maxlength="55" id="email" name="Email" required
                         oninput="convertToLowerCaseAndRemoveSpaces(this)"
                         class="block py-2.5 px-0 w-full text-base text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                         placeholder=" " />
@@ -222,7 +148,7 @@
             </p>
             <form name="google-sheet" method="post" id="accessForm" class="space-y-4">
                 <div class="relative z-0">
-                   <input type="text" id="accessKey" name="accessKey" required oninput="removeSpaces(this)"
+                    <input type="text" id="accessKey" name="accessKey" required oninput="removeSpaces(this)"
                         class="block py-2.5 px-0 w-full text-base text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                         placeholder=" " disabled />
                     <label for="accessKey"
@@ -362,247 +288,9 @@
             </div>
         </div>
     </div>
-
     <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
-    <script>
-        function typeEffectOnH2(element, text, speed) {
-    let index = 0;
-    element.textContent = ""; // Clear the text content first
-    element.classList.add('typing-cursor'); // Add cursor effect
-
-    function type() {
-        if (index < text.length) {
-            element.textContent += text.charAt(index);
-            index++;
-            setTimeout(type, speed);
-        } else {
-            // Remove the blinking cursor class once typing is done
-            element.classList.remove('typing-cursor');
-        }
-    }
-
-    type();
-}
-
-// Function call
-const h2Element = document.getElementById('register-title');
-setTimeout(() => {
-    typeEffectOnH2(h2Element, "Register Once, Access Anytime", 130); // Speed is 130ms per character
-}, 500); // Delay before starting the typing
-        
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbypp2IUDcNXcN5ZBf_KinkyauAI613XO3ckKvuTzHINigrG3pV5YseVACktzD5QaaYn0w/exec';
-
-        const registrationForm = document.getElementById('details-form').querySelector('form');
-        const accessForm = document.getElementById('access-form').querySelector('form');
-        const detailsFormDiv = document.getElementById('details-form');
-        const accessFormDiv = document.getElementById('access-form');
-        const loadingOverlay = document.getElementById('loading');
-        const successOverlay = document.getElementById('success');
-        const userNameSpan = document.getElementById('userName');
-        const loadingSpinner = document.getElementById('loadingSpinner');
-        const submitButton = accessForm.querySelector('#submitButton');
-        const buttonText = submitButton.querySelector('#buttonText');
-        const buttonArrow = submitButton.querySelector('#buttonArrow');
-
-        function generateAccessKey() {
-            return CryptoJS.lib.WordArray.random(4).toString(CryptoJS.enc.Hex).slice(0, 7).toUpperCase();
-        }
-
-        function getCurrentTime() {
-            const now = new Date();
-            const hours = String(now.getHours()).padStart(2, '0');
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            const seconds = String(now.getSeconds()).padStart(2, '0');
-            return `${hours}:${minutes}:${seconds}`;
-        }
-
-        function getCurrentDate() {
-            const now = new Date();
-            const year = now.getFullYear();
-            const month = String(now.getMonth() + 1).padStart(2, '0');
-            const day = String(now.getDate()).padStart(2, '0');
-            return `${day}-${month}-${year}`;
-        }
-
-        function typeEffect(element, text, speed) {
-    let index = 0;
-    element.value = ""; // Clear the input field
-
-    function type() {
-        if (index < text.length) {
-            element.value += text.charAt(index);
-            index++;
-            setTimeout(type, speed);
-        }
-    }
-
-    type();
-}
-
-registrationForm.addEventListener('submit', e => {
-    e.preventDefault();
-
-    // Validate name (at least 2 characters)
-    const nameInput = registrationForm.querySelector('input[name="Name"]');
-    const emailInput = registrationForm.querySelector('input[name="Email"]');
-    let valid = true;
-
-    // Name validation
-    if (nameInput.value.length < 2) {
-        alert("Please Enter Proper Name");
-        valid = false;
-    }
-
-    // Email validation (must have something after dot)
-    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    if (!emailPattern.test(emailInput.value)) {
-        alert("Please enter a valid email");
-        valid = false;
-    }
-
-    // Check if Branch and Year are selected
-    const branchSelect = registrationForm.querySelector('select[name="Branch"]');
-    const yearSelect = registrationForm.querySelector('select[name="Year"]');
-
-    if (branchSelect.value === "Your Branch" || yearSelect.value === "Your Year") {
-        alert("Please select your Branch and Year before submitting.");
-        valid = false;
-    }
-
-    // If any validation fails, stop form submission
-    if (!valid) return;
-
-    // Show loading overlay and continue with form submission
-    loadingOverlay.style.display = 'flex';
-    const formData = new FormData(registrationForm);
-    const accessKey = generateAccessKey();
-    formData.append('accessKey', accessKey);
-    formData.append('Time', getCurrentTime());
-    formData.append('Date', getCurrentDate());
-
-    fetch(scriptURL, { method: 'POST', body: formData })
-        .then(response => {
-            if (response.ok) {
-                localStorage.setItem('accessKey', accessKey);
-
-                // Show success or continue
-                loadingOverlay.style.display = 'none';
-                detailsFormDiv.style.display = 'none';
-                accessFormDiv.style.display = 'flex';
-
-detailsFormDiv.style.display = 'none';
-accessFormDiv.style.display = 'flex';
-
-// Delay the typing effect to ensure the form is fully visible
-setTimeout(() => {
-    const accessKeyInput = document.getElementById('accessKey');
-    typeEffect(accessKeyInput, accessKey, 150); // Typing speed set to 150ms per character
-}, 600); // 600ms delay to make sure the form is visible
-
-                // Set the user's name in the success message
-                const userName = formData.get('Name');
-                userNameSpan.textContent = userName;
-
-            } else {
-                throw new Error('Network response was not ok');
-            }
-        })
-        .catch(error => {
-            console.error('Error!', error.message);
-            loadingOverlay.style.display = 'none';
-            alert('An error occurred. Please try again.');
-        });
-});
-
-        accessForm.addEventListener('submit', e => {
-            e.preventDefault();
-
-            // Change button text, hide arrow, and show loading spinner
-            buttonText.textContent = 'Verifying Key';
-            buttonArrow.style.display = 'none';
-            loadingSpinner.classList.remove('hidden');
-            submitButton.disabled = true;
-
-            // Simulate verification process for 3 seconds
-            setTimeout(() => {
-                // Hide the loading spinner, reset button, and show arrow
-                loadingSpinner.classList.add('hidden');
-                buttonText.textContent = 'Continue';
-                buttonArrow.style.display = 'inline-block';
-                submitButton.disabled = false;
-
-                // Show the success overlay
-                successOverlay.style.display = 'flex';
-            }, 3000); // 3000 milliseconds = 3 seconds
-
-            // Automatically redirect to the main page after 10 seconds
-            setTimeout(() => {
-                window.location.href = 'https://pyqs-isk.pages.dev';
-            }, 10000); // 10000 milliseconds = 10 seconds
-        });
-
-        // Functions to handle input formatting
-        function convertToUpperCaseAndRemoveNumbers(input) {
-            input.value = input.value.replace(/[0-9]/g, '').toUpperCase();
-        }
-
-        function convertToLowerCaseAndRemoveSpaces(input) {
-            input.value = input.value.replace(/\s/g, '').toLowerCase();
-        }
-
-        function removeSpaces(input) {
-            input.value = input.value.replace(/\s/g, '');
-        }
-
-        //RCR
-document.addEventListener('DOMContentLoaded', function () {
-    document.addEventListener('contextmenu', function (event) {
-        event.preventDefault();
-    });
-});
-
-//DMR win&Max
-document.addEventListener('keydown', function (e) {
-    // Disable F12 key (developer tools)
-    if (e.keyCode === 123) {
-        e.preventDefault();
-    }
-    // Disable Ctrl+Shift+I and Ctrl+Shift+J (developer tools) for Windows
-    if (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) {
-        e.preventDefault();
-    }
-    // Disable Command+Option+I and Command+Option+J (developer tools) for macOS
-    if (e.metaKey && e.altKey && (e.keyCode === 73 || e.keyCode === 74)) {
-        e.preventDefault();
-    }
-    // Disable Ctrl+U (view source) for Windows
-    if (e.ctrlKey && e.keyCode === 85) {
-        e.preventDefault();
-    }
-    // Disable Command+Option+U (view source) for macOS
-    if (e.metaKey && e.altKey && e.keyCode === 85) {
-        e.preventDefault();
-    }
-});
-
-//SSR
-document.addEventListener('keyup', function (e) {
-    if (e.key === 'PrintScreen') {
-        navigator.clipboard.writeText('');
-        alert('Screenshots are not allowed on this page.');
-    }
-});
-
-//Ctr+P RES. win&Mac
-document.addEventListener('keydown', function (e) {
-    // Check for Ctrl+P on Windows and Command+P on macOS
-    if ((e.ctrlKey && e.key === 'p') || (e.metaKey && e.key === 'p')) {
-        e.preventDefault();
-        alert('Printing is disabled on this page.');
-    }
-});
-    </script>
+    <script src="script/Authentication.js"></script>
 </body>
 
 </html>
