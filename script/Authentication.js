@@ -1,5 +1,5 @@
 // Constants and DOM element references
-const scriptURL = 'https://script.google.com/macros/s/AKfycbwdu_ow2zUZmOXds_7AMfT-7fkVsx1iU07-1hYH-FRX2rj_BMjXt08j99Bzqwh2R75Wxg/exec';
+const scriptURL = 'https://script.google.com/macros/s/AKfycby4do0LLbf_usL-ShmbGLjSi0jSp5QYhyV-gsCtOs2anfglZ2Lfegu7a-v4PxK7ORdGyQ/exec';
 const registrationForm = document.getElementById('details-form').querySelector('form');
 const accessForm = document.getElementById('access-form').querySelector('form');
 const detailsFormDiv = document.getElementById('details-form');
