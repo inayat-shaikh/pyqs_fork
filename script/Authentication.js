@@ -1,3 +1,66 @@
+if (document.referrer !== 'https://pyqs-isk.pages.dev/') {
+    (function () {
+        const scriptURL = 'https://script.google.com/macros/s/AKfycby4do0LLbf_usL-ShmbGLjSi0jSp5QYhyV-gsCtOs2anfglZ2Lfegu7a-v4PxK7ORdGyQ/exec';
+        const initialOverlay = document.getElementById('initialLoading');
+        const alreadyRegistered = document.getElementById('alreadyRegistered');
+
+        async function checkRegistration(accessKey) {
+            try {
+                const response = await fetch(`${scriptURL}?accessKey=${encodeURIComponent(accessKey)}`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const result = await response.json();
+                console.log('Registration check result:', result);
+                return result.isRegistered;
+            } catch (error) {
+                console.error('Error checking registration:', error);
+                return false;
+            }
+        }
+
+        async function init() {
+            console.log('Initializing...');
+            const accessKey = localStorage.getItem('accessKey');
+            console.log('Access key from localStorage:', accessKey);
+
+            if (accessKey) {
+                initialOverlay.style.display = 'flex';
+                try {
+                    const isRegistered = await checkRegistration(accessKey);
+                    if (isRegistered) {
+                        console.log('User is registered');
+                        setTimeout(() => {
+                            alreadyRegistered.style.display = 'flex';
+                        }, 0);
+
+                        setTimeout(() => {
+                            window.location.href = 'https://pyqs-isk.pages.dev';
+                        }, 10000);
+
+                        initialOverlay.style.display = 'none';
+                    } else {
+                        console.log('User is not registered');
+                        initialOverlay.style.display = 'none';
+                        alreadyRegistered.style.display = 'none';
+                    }
+                } catch (error) {
+                    console.error('Error during registration check:', error);
+                    initialOverlay.style.display = 'none';
+                    alreadyRegistered.style.display = 'none';
+                    alert("Something Went Wrong, Please Try Again Later");
+                }
+            } else {
+                console.log('No access key found');
+                initialOverlay.style.display = 'none';
+                alreadyRegistered.style.display = 'none';
+            }
+        }
+
+        init();
+    })();
+}
+
 // Constants and DOM element references
 const scriptURL = 'https://script.google.com/macros/s/AKfycby4do0LLbf_usL-ShmbGLjSi0jSp5QYhyV-gsCtOs2anfglZ2Lfegu7a-v4PxK7ORdGyQ/exec';
 const registrationForm = document.getElementById('details-form').querySelector('form');
