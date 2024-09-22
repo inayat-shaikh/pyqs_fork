@@ -60,50 +60,111 @@ function typeEffect(element, text, speed) {
     type();
 }
 
+// async function generateStableIdentifier() {
+//     const { device } = getBrowserAndDevice();
+//     const deviceCharacteristics = [
+//         device,
+//         screen.width,
+//         screen.height,
+//         screen.colorDepth,
+//         navigator.hardwareConcurrency,
+//         navigator.deviceMemory,
+//         navigator.platform,
+//         new Date().getTimezoneOffset(),
+//         Intl.DateTimeFormat().resolvedOptions().timeZone
+//     ];
+
+//     const canvas = document.createElement('canvas');
+//     const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+//     let glInfo = 'No WebGL';
+//     if (gl) {
+//         const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+//         glInfo = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+//     }
+//     deviceCharacteristics.push(glInfo);
+
+//     const deviceString = deviceCharacteristics.join('|');
+//     const encoder = new TextEncoder();
+//     const data = encoder.encode(deviceString);
+//     const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+
+//     const hashArray = Array.from(new Uint8Array(hashBuffer));
+//     const hashBase64 = btoa(String.fromCharCode.apply(null, hashArray));
+//     const shortId = hashBase64.substr(0, 7).replace(/\+/g, '0').replace(/\//g, '1');
+
+//     let ipAddress;
+//     try {
+//         const response = await fetch('https://api.ipify.org?format=json');
+//         if (!response.ok) throw new Error('IP fetch failed');
+//         const data = await response.json();
+//         ipAddress = data.ip;
+//     } catch (error) {
+//         console.error('Error fetching IP address:', error);
+//         ipAddress = 'unknown';
+//     }
+
+//     return { stableId: shortId, ipAddress: ipAddress };
+// }
+
+
 async function generateStableIdentifier() {
-    const { device } = getBrowserAndDevice();
+    // Retrieve from localStorage if already generated
+    let storedStableId = localStorage.getItem('stableId');
+    if (storedStableId) {
+        return { stableId: storedStableId, ipAddress: await getIpAddress() };
+    }
+
+    const { device, browser } = getBrowserAndDevice();
     const deviceCharacteristics = [
-        device,
-        screen.width,
-        screen.height,
-        screen.colorDepth,
-        navigator.hardwareConcurrency,
-        navigator.deviceMemory,
-        navigator.platform,
-        new Date().getTimezoneOffset(),
-        Intl.DateTimeFormat().resolvedOptions().timeZone
+        device,  // Device type (Android, iOS, Windows, etc.)
+        navigator.platform.toLowerCase(),  // Normalize platform
+        screen.width,  // Screen width
+        screen.height, // Screen height
+        new Date().getTimezoneOffset(),  // Timezone offset
+        Intl.DateTimeFormat().resolvedOptions().timeZone  // Timezone name
     ];
 
+    // Only use WebGL characteristics if they are available (some browsers restrict this)
     const canvas = document.createElement('canvas');
     const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-    let glInfo = 'No WebGL';
     if (gl) {
         const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
-        glInfo = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+        if (debugInfo) {
+            const glInfo = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+            deviceCharacteristics.push(glInfo.toLowerCase());  // Normalize WebGL info
+        }
     }
-    deviceCharacteristics.push(glInfo);
 
-    const deviceString = deviceCharacteristics.join('|');
+    // Combine all characteristics and normalize to lowercase to avoid case differences
+    const deviceString = deviceCharacteristics.join('|').toLowerCase();
     const encoder = new TextEncoder();
     const data = encoder.encode(deviceString);
     const hashBuffer = await crypto.subtle.digest('SHA-256', data);
 
+    // Convert the hash to a string and take the first 7 characters
     const hashArray = Array.from(new Uint8Array(hashBuffer));
     const hashBase64 = btoa(String.fromCharCode.apply(null, hashArray));
     const shortId = hashBase64.substr(0, 7).replace(/\+/g, '0').replace(/\//g, '1');
 
-    let ipAddress;
+    // Get the user's IP address
+    const ipAddress = await getIpAddress();
+
+    // Store the generated stableId in localStorage for future sessions
+    localStorage.setItem('stableId', shortId);
+
+    return { stableId: shortId, ipAddress: ipAddress };
+}
+
+async function getIpAddress() {
     try {
         const response = await fetch('https://api.ipify.org?format=json');
         if (!response.ok) throw new Error('IP fetch failed');
         const data = await response.json();
-        ipAddress = data.ip;
+        return data.ip;
     } catch (error) {
         console.error('Error fetching IP address:', error);
-        ipAddress = 'unknown';
+        return 'unknown';
     }
-
-    return { stableId: shortId, ipAddress: ipAddress };
 }
 
 function getBrowserAndDevice() {
