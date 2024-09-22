@@ -16,7 +16,6 @@
     <link rel="stylesheet" href="style\Authentication.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     <script>
-        if (document.referrer !== 'https://pyqs-isk.pages.dev/') {
             //Script hides the content & keeps the checking in progess
             // Immediately check for accessKey
             (async function () {
@@ -58,10 +57,6 @@
                     document.getElementById('initialLoading').style.display = 'none';
                 }
             })();
-        }
-        else {
-            document.getElementById('initialLoading').style.display = 'none';
-        }
     </script>
 </head>
 
