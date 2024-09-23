@@ -1,65 +1,109 @@
-// if (document.referrer !== 'https://pyqs-isk.pages.dev/') {
-//     (function () {
-//         const scriptURL = 'https://script.google.com/macros/s/AKfycby4do0LLbf_usL-ShmbGLjSi0jSp5QYhyV-gsCtOs2anfglZ2Lfegu7a-v4PxK7ORdGyQ/exec';
-//         const initialOverlay = document.getElementById('initialLoading');
-//         const alreadyRegistered = document.getElementById('alreadyRegistered');
+if (document.referrer !== 'pyqs-isk.pages.dev/') {
+    console.log("Not from pyqs-isk.pages.dev");
+    (function () {
+        const scriptURL = 'https://script.google.com/macros/s/AKfycby4do0LLbf_usL-ShmbGLjSi0jSp5QYhyV-gsCtOs2anfglZ2Lfegu7a-v4PxK7ORdGyQ/exec';
+        const initialOverlay = document.getElementById('initialLoading');
+        const alreadyRegistered = document.getElementById('alreadyRegistered');
 
-//         async function checkRegistration(accessKey) {
-//             try {
-//                 const response = await fetch(`${scriptURL}?accessKey=${encodeURIComponent(accessKey)}`);
-//                 if (!response.ok) {
-//                     throw new Error(`HTTP error! status: ${response.status}`);
-//                 }
-//                 const result = await response.json();
-//                 console.log('Registration check result:', result);
-//                 return result.isRegistered;
-//             } catch (error) {
-//                 console.error('Error checking registration:', error);
-//                 return false;
-//             }
-//         }
+        async function checkRegistration(accessKey) {
+            try {
+                const response = await fetch(`${scriptURL}?accessKey=${encodeURIComponent(accessKey)}`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const result = await response.json();
+                console.log('Registration check result:', result);
+                return result.isRegistered;
+            } catch (error) {
+                console.error('Error checking registration:', error);
+                return false;
+            }
+        }
 
-//         async function init() {
-//             console.log('Initializing...');
-//             const accessKey = localStorage.getItem('accessKey');
-//             console.log('Access key from localStorage:', accessKey);
+        async function init() {
+            console.log('Initializing...');
+            const accessKey = localStorage.getItem('accessKey');
+            console.log('Access key from localStorage:', accessKey);
 
-//             if (accessKey) {
-//                 initialOverlay.style.display = 'flex';
-//                 try {
-//                     const isRegistered = await checkRegistration(accessKey);
-//                     if (isRegistered) {
-//                         console.log('User is registered');
-//                         setTimeout(() => {
-//                             alreadyRegistered.style.display = 'flex';
-//                         }, 0);
+            if (accessKey) {
+                initialOverlay.style.display = 'flex';
+                try {
+                    const isRegistered = await checkRegistration(accessKey);
+                    if (isRegistered) {
+                        console.log('User is registered');
+                        setTimeout(() => {
+                            alreadyRegistered.style.display = 'flex';
+                        }, 0);
 
-//                         setTimeout(() => {
-//                             window.location.href = 'https://pyqs-isk.pages.dev';
-//                         }, 10000);
+                        setTimeout(() => {
+                            window.location.href = 'index.html';
+                        }, 10000);
 
-//                         initialOverlay.style.display = 'none';
-//                     } else {
-//                         console.log('User is not registered');
-//                         initialOverlay.style.display = 'none';
-//                         alreadyRegistered.style.display = 'none';
-//                     }
-//                 } catch (error) {
-//                     console.error('Error during registration check:', error);
-//                     initialOverlay.style.display = 'none';
-//                     alreadyRegistered.style.display = 'none';
-//                     alert("Something Went Wrong, Please Try Again Later");
-//                 }
-//             } else {
-//                 console.log('No access key found');
-//                 initialOverlay.style.display = 'none';
-//                 alreadyRegistered.style.display = 'none';
-//             }
-//         }
+                        initialOverlay.style.display = 'none';
+                    } else {
+                        console.log('User is not registered');
+                        localStorage.removeItem('accessKey');
+                        console.log("accessKey Removed");
+                        initialOverlay.style.display = 'none';
+                        alreadyRegistered.style.display = 'none';
+                    }
+                } catch (error) {
+                    console.error('Error during registration check:', error);
+                    initialOverlay.style.display = 'none';
+                    alreadyRegistered.style.display = 'none';
+                    body.style.display = 'none';
+                    alert("Something Went Wrong, Please Try Again Later");
+                }
+            } else {
+                console.log('No access key found');
+                initialOverlay.style.display = 'none';
+                alreadyRegistered.style.display = 'none';
+            }
+        }
 
-//         init();
-//     })();
-// }
+        init();
+    })();
+}
+else {
+    console.log("From pyqs-isk.pages.dev");
+}
+
+async function preloadAnimation() {
+    const animationURL = 'https://lottie.host/264fbdb6-26e3-4189-b390-85c5f7eb09e0/kOSERP7QNV.json';
+    const cachedAnimation = localStorage.getItem('cachedLottieAnimation');
+
+    // Check if the animation is already cached
+    if (cachedAnimation) {
+        return cachedAnimation;
+    } else {
+        try {
+            // Fetch animation from URL
+            const response = await fetch(animationURL);
+            const animationData = await response.json();
+
+            // Store the animation in local storage
+            localStorage.setItem('cachedLottieAnimation', JSON.stringify(animationData));
+
+            return JSON.stringify(animationData);
+        } catch (error) {
+            console.error('Error preloading the animation:', error);
+            return null;
+        }
+    }
+}
+
+// Load the animation from cache or fetch and display it for the specific player by ID
+preloadAnimation().then((animationData) => {
+    if (animationData) {
+        const player = document.getElementById('uniqueLottiePlayer');  // Get the player by id
+        if (player) {
+            // If cached, use a Blob URL to display the animation
+            const blob = new Blob([animationData], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            player.src = url;
+        }
+    }
+});
 
 // Constants and DOM element references
 const scriptURL = 'https://script.google.com/macros/s/AKfycby4do0LLbf_usL-ShmbGLjSi0jSp5QYhyV-gsCtOs2anfglZ2Lfegu7a-v4PxK7ORdGyQ/exec';
