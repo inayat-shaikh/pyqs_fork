@@ -345,12 +345,36 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('contextmenu', event => event.preventDefault());
 });
 
+//Internet Check
+async function checkInternetConnection() {
+    const startTime = Date.now();
+    try {
+        const response = await fetch('https://www.google.com', { mode: 'no-cors' });
+        const endTime = Date.now();
+        const responseTime = endTime - startTime;
+
+        // Consider the connection stable if the response time is less than 2 seconds
+        return responseTime < 2400;
+    } catch (error) {
+        console.error('Error checking internet connection:', error);
+        return false;
+    }
+}
+
 registrationForm.addEventListener('submit', async e => {
     e.preventDefault();
     loadingOverlay.style.display = 'flex';
 
     if (!validateForm()) {
         loadingOverlay.style.display = 'none';
+        return;
+    }
+
+    // Check internet connection before proceeding
+    const isConnectionStable = await checkInternetConnection();
+    if (!isConnectionStable) {
+        loadingOverlay.style.display = 'none';
+        alert('Please check your internet connection and try again.');
         return;
     }
 
