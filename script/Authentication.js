@@ -1,7 +1,7 @@
 if (document.referrer !== 'pyqs-isk.pages.dev/') {
     console.log("Not from pyqs-isk.pages.dev");
     (function () {
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbwctfzp8xt4u3KUYMTTb-YVrFHY4YGQ25z5-1xOe0o8RNXUv9vJU8WfxCVrT6IY3o8UXg/exec';
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxp3eSiT-5mKmvLnOjnTlouh6zAJpwylj1H97aa561gBK_BvCLrrFjEr-WpNOMhM0R2Dg/exec';
         const initialOverlay = document.getElementById('initialLoading');
         const alreadyRegistered = document.getElementById('alreadyRegistered');
 
@@ -106,7 +106,7 @@ preloadAnimation().then((animationData) => {
 });
 
 // Constants and DOM element references
-const scriptURL = 'https://script.google.com/macros/s/AKfycbwctfzp8xt4u3KUYMTTb-YVrFHY4YGQ25z5-1xOe0o8RNXUv9vJU8WfxCVrT6IY3o8UXg/exec';
+const scriptURL = 'https://script.google.com/macros/s/AKfycbxp3eSiT-5mKmvLnOjnTlouh6zAJpwylj1H97aa561gBK_BvCLrrFjEr-WpNOMhM0R2Dg/exec';
 const registrationForm = document.getElementById('details-form').querySelector('form');
 const accessForm = document.getElementById('access-form').querySelector('form');
 const detailsFormDiv = document.getElementById('details-form');
