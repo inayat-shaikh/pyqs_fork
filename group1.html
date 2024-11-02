@@ -13,49 +13,12 @@
     <link href='https://fonts.googleapis.com/css?family=JetBrains Mono' rel='stylesheet'>
     <link rel="stylesheet" href="style\group1.css">
     <script src="script\group.js"></script>
-
-        <script>
-        //Script hides the content & keeps the checking in progess
-        // Immediately check for accessKey
-        (async function () {
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbxp3eSiT-5mKmvLnOjnTlouh6zAJpwylj1H97aa561gBK_BvCLrrFjEr-WpNOMhM0R2Dg/exec';
-
-            // Function to check registration status
-            async function checkRegistration(accessKey) {
-                try {
-                    const response = await fetch(`${scriptURL}?accessKey=${encodeURIComponent(accessKey)}`);
-                    const result = await response.json();
-                    return result.isRegistered;
-                } catch (error) {
-                    console.error('Error checking registration:', error);
-                    return false;
-                }
-            }
-
-            // Check if accessKey exists in localStorage
-            const accessKey = localStorage.getItem('accessKey');
-            if (accessKey) {
-                const isRegistered = await checkRegistration(accessKey);
-                if (isRegistered) {
-                    // Show the content if registered
-                    document.getElementById('initialLoading').style.display = 'none';
-                    // document.getElementById('content').style.display = 'block';
-                } else {
-                    // Redirect to registration if not registered
-                    window.location.href = 'Authentication.html';
-                }
-            } else {
-                // Redirect to registration if accessKey is not found
-                window.location.href = 'Authentication.html';
-            }
-        })();
-    </script>
 </head>
 
 <body class="">
     <div class="container mx-auto px-4 py-8">
-<!--         <button id="theme-toggle" type="button"
-            class="text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 dark:hover:focus:ring-blue-800 hover:focus:ring-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-800 dark:focus:ring-blue-800 rounded-lg text-sm p-2.5"
+        <button id="theme-toggle" type="button"
+            class="text-gray-500 hidden dark:text-gray-400 bg-gray-100 dark:bg-gray-700 dark:hover:focus:ring-blue-800 hover:focus:ring-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-800 dark:focus:ring-blue-800 rounded-lg text-sm p-2.5"
             style="position: absolute; left: 20px; top: 28px;">
             <svg id="theme-toggle-dark-icon" class="hidden w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
                 xmlns="http://www.w3.org/2000/svg">
@@ -67,7 +30,7 @@
                     d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
                     fill-rule="evenodd" clip-rule="evenodd"></path>
             </svg>
-        </button> -->
+        </button>
         <h1 class="text-3xl mb-4" style="color: white;">GROUP 1 PYQ'S</h1>
 
         <!--------------------ACCORDION STARTS-------------------------------->
@@ -308,6 +271,30 @@
         </div>
     </div>
 
+    <div id="initialLoading" class="initial-overlay" style="display: flex;">
+        <div class="overlay-content">
+            <div class="relative bg-white rounded-lg shadow" style="border-radius: 30px;">
+                <div class="p-4 md:p-5 text-center">
+                    <div class="loading-center">
+                        <div role="status">
+                            <svg aria-hidden="true" class="w-8 h-8 text-gray-200 animate-spin fill-blue-600"
+                                viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                                    fill="currentColor" />
+                                <path
+                                    d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                                    fill="currentFill" />
+                            </svg>
+                            <h4 class="text-gray-600" style="margin-top: 15px;">Please Wait...</h4>
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!------------Time par based theme apply------------>
     <script>
@@ -345,33 +332,9 @@
             }
         });
     </script>
-
+    <script src="firebase/groupfirebase.js" type="module"></script>
     <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
-
-    <div id="initialLoading" class="initial-overlay" style="display: flex;">
-        <div class="overlay-content">
-            <div class="relative bg-white rounded-lg shadow" style="border-radius: 30px;">
-                <div class="p-4 md:p-5 text-center">
-                    <div class="loading-center">
-                        <div role="status">
-                            <svg aria-hidden="true" class="w-8 h-8 text-gray-200 animate-spin fill-blue-600"
-                                viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                                    fill="currentColor" />
-                                <path
-                                    d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                                    fill="currentFill" />
-                            </svg>
-                            <h4 class="text-gray-600" style="margin-top: 15px;">Please Wait...</h4>
-                            <span class="sr-only">Loading...</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 </body>
 
 </html>
