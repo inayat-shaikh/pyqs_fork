@@ -434,30 +434,30 @@ accessForm.addEventListener('submit', e => {
     }, 10000);
 });
 
-// // Security measures
-// document.addEventListener('keydown', e => {
-//     if (e.keyCode === 123 ||
-//         (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) ||
-//         (e.metaKey && e.altKey && (e.keyCode === 73 || e.keyCode === 74)) ||
-//         (e.ctrlKey && e.keyCode === 85) ||
-//         (e.metaKey && e.altKey && e.keyCode === 85)) {
-//         e.preventDefault();
-//     }
-// });
+// Security measures
+document.addEventListener('keydown', e => {
+    if (e.keyCode === 123 ||
+        (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) ||
+        (e.metaKey && e.altKey && (e.keyCode === 73 || e.keyCode === 74)) ||
+        (e.ctrlKey && e.keyCode === 85) ||
+        (e.metaKey && e.altKey && e.keyCode === 85)) {
+        e.preventDefault();
+    }
+});
 
-// document.addEventListener('keyup', e => {
-//     if (e.key === 'PrintScreen') {
-//         navigator.clipboard.writeText('');
-//         alert('Screenshots are not allowed on this page.');
-//     }
-// });
+document.addEventListener('keyup', e => {
+    if (e.key === 'PrintScreen') {
+        navigator.clipboard.writeText('');
+        alert('Screenshots are not allowed on this page.');
+    }
+});
 
-// document.addEventListener('keydown', e => {
-//     if ((e.ctrlKey && e.key === 'p') || (e.metaKey && e.key === 'p')) {
-//         e.preventDefault();
-//         alert('Printing is disabled on this page.');
-//     }
-// });
+document.addEventListener('keydown', e => {
+    if ((e.ctrlKey && e.key === 'p') || (e.metaKey && e.key === 'p')) {
+        e.preventDefault();
+        alert('Printing is disabled on this page.');
+    }
+});
 
 //Function to show infoModal
 let infoModalShown = false; // Flag to track if the modal was shown
