@@ -48,7 +48,7 @@ const db = getDatabase(app);
     if (accessKey) {
         console.log("Access Key found in local storage.");
 
-        const checkInterval = 86400000;
+        const checkInterval = 5184000000;
 
         if (!lastCheckTime || (currentTime - lastCheckTime < checkInterval)) {
             console.log("First access or check interval not reached; showing content.");
