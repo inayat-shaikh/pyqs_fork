@@ -11,36 +11,21 @@
 //     }, 6300);
 // });
 
-///WhatsApp Group Join///
+///WhatsApp Group Join does not required checkbox code in html///
 document.addEventListener('DOMContentLoaded', () => {
     const contactModal = document.getElementById('contactModal');
     const closeModalBtn = document.getElementById('closeModal');
     const whatsappLink = document.getElementById('whatsappLink');
-    const disableModalCheckbox = document.getElementById('disableModalCheckbox');
-
-    // Function to check if modal should be shown
-    function shouldShowModal() {
-        // Check localStorage for hidden flag
-        return !localStorage.getItem('whatsappModalHidden');
-    }
 
     // Function to show the modal
     function showModal() {
-        if (shouldShowModal()) {
-            contactModal.style.display = 'flex';
-        } else {
-            contactModal.style.display = 'none';
-        }
+        // Always display the modal
+        contactModal.style.display = 'flex';
     }
 
     // Function to close the modal
     function closeModal() {
-        // Check if checkbox is checked to permanently hide
-        if (disableModalCheckbox.checked) {
-            localStorage.setItem('whatsappModalHidden', 'true');
-        }
-
-        // Hide the modal
+        // Simply hide the modal
         contactModal.style.display = 'none';
     }
 
@@ -82,6 +67,78 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(scrollToModal, 500);
     };
 });
+
+///WhatsApp Group Join required checkbox code in html///
+// document.addEventListener('DOMContentLoaded', () => {
+//     const contactModal = document.getElementById('contactModal');
+//     const closeModalBtn = document.getElementById('closeModal');
+//     const whatsappLink = document.getElementById('whatsappLink');
+//     const disableModalCheckbox = document.getElementById('disableModalCheckbox');
+
+//     // Function to check if modal should be shown
+//     function shouldShowModal() {
+//         // Check localStorage for hidden flag
+//         return !localStorage.getItem('whatsappModalHidden');
+//     }
+
+//     // Function to show the modal
+//     function showModal() {
+//         if (shouldShowModal()) {
+//             contactModal.style.display = 'flex';
+//         } else {
+//             contactModal.style.display = 'none';
+//         }
+//     }
+
+//     // Function to close the modal
+//     function closeModal() {
+//         // Check if checkbox is checked to permanently hide
+//         if (disableModalCheckbox.checked) {
+//             localStorage.setItem('whatsappModalHidden', 'true');
+//         }
+
+//         // Hide the modal
+//         contactModal.style.display = 'none';
+//     }
+
+//     // Function to scroll to modal
+//     function scrollToModal() {
+//         // Check if modal is visible
+//         if (contactModal.style.display === 'flex') {
+//             // Calculate the scroll position to center the modal vertically
+//             const modalRect = contactModal.getBoundingClientRect();
+//             const viewportHeight = window.innerHeight;
+//             const modalHeight = modalRect.height;
+
+//             // Calculate the scroll position to center the modal
+//             const scrollPosition =
+//                 modalRect.top +
+//                 window.pageYOffset -
+//                 (viewportHeight - modalHeight) / 2;
+
+//             // Smooth scroll to the calculated position
+//             window.scrollTo({
+//                 top: scrollPosition,
+//                 behavior: 'smooth'
+//             });
+//         }
+//     }
+
+//     // Ensure WhatsApp link opens in new tab
+//     whatsappLink.setAttribute('target', '_blank');
+//     whatsappLink.setAttribute('rel', 'noopener noreferrer');
+
+//     // Event listener for close button
+//     closeModalBtn.addEventListener('click', closeModal);
+
+//     // Show modal on page load
+//     showModal();
+
+//     // Window onload to handle scrolling after all content is loaded
+//     window.onload = () => {
+//         setTimeout(scrollToModal, 500);
+//     };
+// });
 
 //RCR
 document.addEventListener('DOMContentLoaded', function () {
