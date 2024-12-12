@@ -68,10 +68,10 @@ document.addEventListener('DOMContentLoaded', async function () {
     if (accessKey) {
         console.log("Access Key found in local storage.");
 
-        const checkInterval = 5184000000;
+        const checkInterval = 31536000000;
 
         if (!lastCheckTime || (currentTime - lastCheckTime < checkInterval)) {
-            console.log("First access or 24-hour interval not reached; showing content.");
+            console.log("First access or 1year interval not reached; showing content.");
 
             if (!lastCheckTime) {
                 console.log("First access detected. Setting lastCheckTime.");
