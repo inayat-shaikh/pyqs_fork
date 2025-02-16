@@ -68,6 +68,18 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 });
 
+//Animation on whatsapp texts
+document.addEventListener("DOMContentLoaded", function () {
+  const stackAnimation = document.querySelector(".stack-animation");
+  const spans = stackAnimation.querySelectorAll("span");
+
+  spans.forEach((span, index) => {
+    span.style.setProperty("--index", index);
+  });
+
+  stackAnimation.classList.add("animate");
+});
+
 ///WhatsApp Group Join required checkbox code in html///
 // document.addEventListener('DOMContentLoaded', () => {
 //     const contactModal = document.getElementById('contactModal');
