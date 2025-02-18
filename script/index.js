@@ -160,12 +160,42 @@ document.addEventListener("DOMContentLoaded", function () {
   const stackAnimation = document.querySelector(".stack-animation");
   const spans = stackAnimation.querySelectorAll("span");
 
+  // Set initial index for each span
   spans.forEach((span, index) => {
     span.style.setProperty("--index", index);
   });
 
-  stackAnimation.classList.add("animate");
+  // Create Intersection Observer
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          // Element is visible in viewport
+          stackAnimation.classList.add("animate");
+        } else {
+        }
+      });
+    },
+    {
+      threshold: 0.99, // Trigger when 99% of the element is visible
+    }
+  );
+
+  // Start observing the element
+  observer.observe(stackAnimation);
 });
+//Commented previous animation function (Start)//
+// document.addEventListener("DOMContentLoaded", function () {
+//   const stackAnimation = document.querySelector(".stack-animation");
+//   const spans = stackAnimation.querySelectorAll("span");
+
+//   spans.forEach((span, index) => {
+//     span.style.setProperty("--index", index);
+//   });
+
+//   stackAnimation.classList.add("animate");
+// });
+//Commented previous animation function (end)//
 
 ///WhatsApp Group Join required checkbox code in html///
 // document.addEventListener('DOMContentLoaded', () => {
