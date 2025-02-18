@@ -1,3 +1,81 @@
+//Alert function activated when whatsapp close button is clicked
+window.addEventListener("DOMContentLoaded", function () {
+  const alertElement = document.getElementById("alert-border-3");
+  const dismissButton = alertElement.querySelector(
+    '[data-dismiss-target="#alert-border-3"]'
+  );
+  let timerStarted = false;
+  let autoCloseTimer = null;
+
+  // Function to check if element is visible
+  function isElementVisible(el) {
+    const style = window.getComputedStyle(el);
+    return style.display !== "none" && style.visibility !== "hidden";
+  }
+
+  // Function to start the auto-close timer and animations
+  function startAlertTimer() {
+    if (timerStarted) return; // Prevent multiple timers
+    timerStarted = true;
+
+    // Add fade-in animation
+    alertElement.classList.add("fade-in", "show");
+    alertElement.classList.remove("fade-out");
+
+    // Start the timer for fade-out and removal
+    autoCloseTimer = setTimeout(function () {
+      closeAlert();
+    }, 6300); // Display duration before starting fade-out
+  }
+
+  // Function to close the alert
+  function closeAlert() {
+    // Clear any existing timer
+    if (autoCloseTimer) {
+      clearTimeout(autoCloseTimer);
+    }
+
+    // Start fade-out animation
+    alertElement.classList.remove("fade-in");
+    alertElement.classList.add("fade-out");
+
+    // Remove element after animation completes
+    setTimeout(function () {
+      alertElement.remove();
+    }, 500); // Matches the fade-out animation duration
+  }
+
+  // Create a MutationObserver to watch for style/display changes
+  const observer = new MutationObserver(function (mutations) {
+    mutations.forEach(function (mutation) {
+      if (
+        mutation.attributeName === "style" ||
+        mutation.attributeName === "class"
+      ) {
+        if (isElementVisible(alertElement) && !timerStarted) {
+          startAlertTimer();
+        }
+      }
+    });
+  });
+
+  // Add click event listener to dismiss button
+  dismissButton.addEventListener("click", function () {
+    closeAlert();
+  });
+
+  // Start observing the alert element for style and class changes
+  observer.observe(alertElement, {
+    attributes: true,
+    attributeFilter: ["style", "class"],
+  });
+
+  // Check initial state
+  if (isElementVisible(alertElement) && !timerStarted) {
+    startAlertTimer();
+  }
+});
+//Ordinary alert function when whatsapp modal is removed
 // window.addEventListener('DOMContentLoaded', function () {
 //     var alertElement = document.getElementById('alert-border-3');
 //     alertElement.classList.add('fade-in', 'show');
@@ -12,60 +90,69 @@
 // });
 
 ///WhatsApp Group Join does not required checkbox code in html///
-document.addEventListener('DOMContentLoaded', () => {
-    const contactModal = document.getElementById('contactModal');
-    const closeModalBtn = document.getElementById('closeModal');
-    const whatsappLink = document.getElementById('whatsappLink');
+document.addEventListener("DOMContentLoaded", () => {
+  const contactModal = document.getElementById("contactModal");
+  const closeModalBtn = document.getElementById("closeModal");
+  const whatsappLink = document.getElementById("whatsappLink");
+  const alertElement = document.getElementById("alert-border-3");
 
-    // Function to show the modal
-    function showModal() {
-        // Always display the modal
-        contactModal.style.display = 'flex';
+  // Function to show the modal
+  function showModal() {
+    // Always display the modal
+    contactModal.style.display = "flex";
+  }
+
+  // Function to close the modal
+  function closeModal() {
+    // Simply hide the modal
+    contactModal.style.display = "none";
+    alertElement.style.display = "flex";
+    scrollToTop();
+  }
+
+  // Function to scroll to modal
+  function scrollToModal() {
+    // Check if modal is visible
+    if (contactModal.style.display === "flex") {
+      // Calculate the scroll position to center the modal vertically
+      const modalRect = contactModal.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+      const modalHeight = modalRect.height;
+
+      // Calculate the scroll position to center the modal
+      const scrollPosition =
+        modalRect.top + window.pageYOffset - (viewportHeight - modalHeight) / 2;
+
+      // Smooth scroll to the calculated position
+      window.scrollTo({
+        top: scrollPosition,
+        behavior: "smooth",
+      });
     }
+  }
 
-    // Function to close the modal
-    function closeModal() {
-        // Simply hide the modal
-        contactModal.style.display = 'none';
-    }
+  //Scroll to top
+  function scrollToTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }
 
-    // Function to scroll to modal
-    function scrollToModal() {
-        // Check if modal is visible
-        if (contactModal.style.display === 'flex') {
-            // Calculate the scroll position to center the modal vertically
-            const modalRect = contactModal.getBoundingClientRect();
-            const viewportHeight = window.innerHeight;
-            const modalHeight = modalRect.height;
+  // Ensure WhatsApp link opens in new tab
+  whatsappLink.setAttribute("target", "_blank");
+  whatsappLink.setAttribute("rel", "noopener noreferrer");
 
-            // Calculate the scroll position to center the modal
-            const scrollPosition =
-                modalRect.top +
-                window.pageYOffset -
-                (viewportHeight - modalHeight) / 2;
+  // Event listener for close button
+  closeModalBtn.addEventListener("click", closeModal);
 
-            // Smooth scroll to the calculated position
-            window.scrollTo({
-                top: scrollPosition,
-                behavior: 'smooth'
-            });
-        }
-    }
+  // Show modal on page load
+  showModal();
 
-    // Ensure WhatsApp link opens in new tab
-    whatsappLink.setAttribute('target', '_blank');
-    whatsappLink.setAttribute('rel', 'noopener noreferrer');
-
-    // Event listener for close button
-    closeModalBtn.addEventListener('click', closeModal);
-
-    // Show modal on page load
-    showModal();
-
-    // Window onload to handle scrolling after all content is loaded
-    window.onload = () => {
-        setTimeout(scrollToModal, 500);
-    };
+  // Window onload to handle scrolling after all content is loaded
+  window.onload = () => {
+    setTimeout(scrollToModal, 500);
+  };
 });
 
 //Animation on whatsapp texts
