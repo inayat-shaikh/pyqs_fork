@@ -36,65 +36,68 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-        document.addEventListener('DOMContentLoaded', async function () {
-            console.log("DOM fully loaded and parsed.");
+document.addEventListener('DOMContentLoaded', async function () {
+    console.log("DOM fully loaded and parsed.");
 
-            async function checkRegistration(accessKey) {
-                console.log("Checking registration status in Firebase...");
-                try {
-                    const dbRef = ref(db, `accessKeys/${accessKey}`);
-                    const snapshot = await get(dbRef);
+    async function checkRegistration(accessKey) {
+        console.log("Checking registration status in Firebase...");
+        try {
+            const dbRef = ref(db, `accessKeys/${accessKey}`);
+            const snapshot = await get(dbRef);
 
-                    if (snapshot.exists()) {
-                        console.log(`Access key verified for user: ${snapshot.val()}`);
-                        return true;
-                    } else {
-                        console.log('Access key not found in Firebase.');
-                        return false;
-                    }
-                } catch (error) {
-                    console.error('Error checking registration in Firebase:', error);
-                    return false;
-                }
+            if (snapshot.exists()) {
+                console.log(`Access key verified for user: ${snapshot.val()}`);
+                return true;
+            } else {
+                console.log('Access key not found in Firebase.');
+                return false;
+            }
+        } catch (error) {
+            console.error('Error checking registration in Firebase:', error);
+            return false;
+        }
+    }
+
+    const currentTime = new Date().getTime();
+    console.log("Current time:", currentTime);
+
+    const accessKey = localStorage.getItem('accessKey');
+    const lastCheckTime = localStorage.getItem('lastCheckTime');
+    console.log("Access Key:", accessKey);
+    console.log("Last Check Time:", lastCheckTime);
+
+    if (accessKey) {
+        console.log("Access Key found in local storage.");
+
+        const checkInterval = 31536000000;
+
+        if (!lastCheckTime || (currentTime - lastCheckTime < checkInterval)) {
+            console.log("First access or 1year interval not reached; showing content.");
+
+            if (!lastCheckTime) {
+                console.log("First access detected. Setting lastCheckTime.");
+                localStorage.setItem('lastCheckTime', currentTime);
             }
 
-            const currentTime = new Date().getTime();
-            console.log("Current time:", currentTime);
+            document.getElementById('initialLoading').style.display = 'none';
+            document.getElementById('content').removeAttribute('style');
 
-            const accessKey = localStorage.getItem('accessKey');
-            const lastCheckTime = localStorage.getItem('lastCheckTime');
-            console.log("Access Key:", accessKey);
-            console.log("Last Check Time:", lastCheckTime);
+            // Determine animation duration based on screen width
+            const animationDuration = window.innerWidth >= 768 ? '15s' : '10s';
 
-            if (accessKey) {
-                console.log("Access Key found in local storage.");
-
-                const checkInterval = 31536000000;
-
-                if (!lastCheckTime || (currentTime - lastCheckTime < checkInterval)) {
-                    console.log("First access or 1year interval not reached; showing content.");
-
-                    if (!lastCheckTime) {
-                        console.log("First access detected. Setting lastCheckTime.");
-                        localStorage.setItem('lastCheckTime', currentTime);
-                    }
-
-                    document.getElementById('initialLoading').style.display = 'none';
-                    document.getElementById('content').removeAttribute('style');
-
-                    // Create a style element for the animation
-                    const style = document.createElement('style');
-                    style.type = 'text/css';
-                    style.innerHTML = `
+            // Create a style element for the animation
+            const style = document.createElement('style');
+            style.type = 'text/css';
+            style.innerHTML = `
                 @keyframes gradientAnimation {
                     0% { background-position: 0% 50%; }
                     50% { background-position: 100% 50%; }
                     100% { background-position: 0% 50%; }
                 }
             `;
-                    document.head.appendChild(style);
+            document.head.appendChild(style);
 
-                    document.getElementById('content').style.cssText = `
+            document.getElementById('content').style.cssText = `
                 background: linear-gradient(214deg, #6a2aaf, #2e2a9e, #2c9995, #0a1438, #08122c, 
                     #0a1438, #6a2aaf, #2c9995, #2e2a9e, #08122c,
                     #08122c, #0a1438, #2c9995, #2e2a9e, #6a2aaf,
@@ -110,29 +113,32 @@ const db = getDatabase(app);
                 background-repeat: no-repeat;
                 background-attachment: fixed;
                 margin: 0;
-                animation: gradientAnimation 15s ease infinite;
+                animation: gradientAnimation ${animationDuration} ease infinite;
             `;
-                } else {
-                    console.log("24 hours have passed; verifying with Firebase.");
-                    const isRegistered = await checkRegistration(accessKey);
-                    if (isRegistered) {
-                        console.log("User is registered, showing content and updating lastCheckTime.");
-                        document.getElementById('initialLoading').style.display = 'none';
-                        document.getElementById('content').removeAttribute('style');
+        } else {
+            console.log("24 hours have passed; verifying with Firebase.");
+            const isRegistered = await checkRegistration(accessKey);
+            if (isRegistered) {
+                console.log("User is registered, showing content and updating lastCheckTime.");
+                document.getElementById('initialLoading').style.display = 'none';
+                document.getElementById('content').removeAttribute('style');
 
-                        // Create a style element for the animation
-                        const style = document.createElement('style');
-                        style.type = 'text/css';
-                        style.innerHTML = `
+                // Determine animation duration based on screen width
+                const animationDuration = window.innerWidth >= 768 ? '15s' : '10s';
+
+                // Create a style element for the animation
+                const style = document.createElement('style');
+                style.type = 'text/css';
+                style.innerHTML = `
                     @keyframes gradientAnimation {
                         0% { background-position: 0% 50%; }
                         50% { background-position: 100% 50%; }
                         100% { background-position: 0% 50%; }
                     }
                 `;
-                        document.head.appendChild(style);
+                document.head.appendChild(style);
 
-                        document.getElementById('content').style.cssText = `
+                document.getElementById('content').style.cssText = `
                     background: linear-gradient(214deg, #6a2aaf, #2e2a9e, #2c9995, #0a1438, #08122c, 
                     #0a1438, #6a2aaf, #2c9995, #2e2a9e, #08122c,
                     #08122c, #0a1438, #2c9995, #2e2a9e, #6a2aaf,
@@ -148,20 +154,20 @@ const db = getDatabase(app);
                     background-repeat: no-repeat;
                     background-attachment: fixed;
                     margin: 0;
-                    animation: gradientAnimation 15s ease infinite;
+                    animation: gradientAnimation ${animationDuration} ease infinite;
                 `;
 
-                        localStorage.setItem('lastCheckTime', currentTime);
-                    } else {
-                        console.log("User not registered, redirecting to Authentication.html.");
-                        window.location.href = 'Authentication.html';
-                    }
-                }
+                localStorage.setItem('lastCheckTime', currentTime);
             } else {
-                console.log("No access key found in local storage, redirecting to Authentication.html.");
+                console.log("User not registered, redirecting to Authentication.html.");
                 window.location.href = 'Authentication.html';
             }
-        });
+        }
+    } else {
+        console.log("No access key found in local storage, redirecting to Authentication.html.");
+        window.location.href = 'Authentication.html';
+    }
+});
 </script>
 </head>
 
