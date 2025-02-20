@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             document.getElementById('content').removeAttribute('style');
 
             // Determine animation duration based on screen width
-            const animationDuration = window.innerWidth >= 768 ? '15s' : '10s';
+            const animationDuration = window.innerWidth >= 768 ? '20s' : '7s';
 
             // Create a style element for the animation
             const style = document.createElement('style');
@@ -213,11 +213,18 @@ min-height: 100vh;">
             <div id="card1" style="
             margin-right: 10px;
             margin-left: 10px;
-            margin-top: 10px; color: #fff; border-radius: 50px;"
+            margin-top: 10px; 
+            color: #fff; 
+            border-radius: 50px;"
                 class="card block max-w-sm p-6 bg-white border border-gray-200 shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-                <a href="#">
-                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-white-900 dark:text-white">GROUP I</h5>
-                </a>
+
+                <!-- Center the <h5> -->
+                <div style="display: flex; justify-content: center;">
+                    <a href="#">
+                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-white-900 dark:text-white">GROUP I</h5>
+                    </a>
+                </div>
+
                 <p class="mb-3 font-normal text-white-700">[GROUP I] is Consist of : <br> ●
                     Physics <br> ● Mathematics <br> ● Basic Electrical Engineering <br>● Engineering Graphics &
                     Design
@@ -240,30 +247,42 @@ min-height: 100vh;">
                         </ul>
                     </div>
                 </div>
-                <a href="group1.html" style="border-radius: 18px;"
-                    class="inline-flex items-center px-3 py-2 text-base font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
-                    Continue
-                    <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                        fill="none" viewBox="0 0 14 10">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M1 5h12m0 0L9 1m4 4L9 9" />
-                    </svg>
-                </a>
+
+                <!-- Center the "Continue" button -->
+                <div style="display: flex; justify-content: center;">
+                    <a href="group1.html" style="border-radius: 18px;"
+                        class="inline-flex items-center px-3 py-2 text-base font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
+                        Continue
+                        <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M1 5h12m0 0L9 1m4 4L9 9" />
+                        </svg>
+                    </a>
+                </div>
             </div>
 
             <!-------------------CARD 2-------------------------->
-            <div id="card2" style="
+<div id="card2" style="
             margin-right: 10px;
             margin-left: 10px;
             margin-top: 10px;
-            margin-bottom: 25px; color: #fff; border-radius: 50px;"
-                class="card block max-w-sm p-6 bg-white border border-gray-200 shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-                <a href="#">
-                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-white-900 dark:text-white">GROUP II</h5>
-                </a>
+            margin-bottom: 25px; 
+            color: #fff;
+            border-radius: 50px;"
+                class="card block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+
+                <!-- Center the <h5> -->
+                <div style="display: flex; justify-content: center;">
+                    <a href="#">
+                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-white-900 dark:text-white">GROUP II</h5>
+                    </a>
+                </div>
+
                 <p class="mb-3 font-normal text-white-700">[GROUP II] is Consist of : <br> ●
                     Chemistry <br> ● Programming for Problem Solving <br>● Mathematics <br>● Engineering Mechanics <br>●
-                    Introduction To Indian Knowledge System.</p>
+                    Introduction To Indian Knowledge System.
+                </p>
 
                 <!--------------NOTE-------------->
                 <div class="flex p-4 mb-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400"
@@ -281,15 +300,19 @@ min-height: 100vh;">
                         </ul>
                     </div>
                 </div>
-                <a href="group2.html" style="border-radius: 18px;"
-                    class="inline-flex items-center px-3 py-2 text-base font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
-                    Continue
-                    <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                        fill="none" viewBox="0 0 14 10">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M1 5h12m0 0L9 1m4 4L9 9" />
-                    </svg>
-                </a>
+
+                <!-- Center the "Continue" button -->
+                <div style="display: flex; justify-content: center;">
+                    <a href="group2.html" style="border-radius: 18px;"
+                        class="inline-flex items-center px-3 py-2 text-base font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
+                        Continue
+                        <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M1 5h12m0 0L9 1m4 4L9 9" />
+                        </svg>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
